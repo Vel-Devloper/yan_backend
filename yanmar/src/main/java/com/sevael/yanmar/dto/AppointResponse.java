@@ -15,22 +15,24 @@ public class AppointResponse {
 	public AppointResponse() {}
 	
 //	Constructors for Type1 (Includes Email)
-	public AppointResponse(Long id,String message,int request_type,String visitor_email,int appointment_type,String formLink) {
+	public AppointResponse(Long id,String message,int request_type,String visitor_email,int appointment_type,String formLink,LocalDate appointment_date) {
 		this.id = id;
 		this.message = message;
 		this.request_type = request_type;
 		this.visitor_email = visitor_email;
 		this.appointment_type = appointment_type;
 		this.formLink=formLink; // New field
+		this.appointment_date = appointment_date;
 		
 	}
 	
 //	Constructors for Type2 (Not Includes Email)
-	public AppointResponse(Long id,String message,int request_type,int appointment_type) {
+	public AppointResponse(Long id,String message,int request_type,int appointment_type,LocalDate appointment_date) {
 		this.id = id;
 		this.message = message;
 		this.request_type = request_type;
 		this.appointment_type = appointment_type;
+		this.appointment_date = appointment_date;
 		
 	}
 	

@@ -15,6 +15,7 @@ import com.sevael.yanmar.entity.IntUserLogin;
 import com.sevael.yanmar.repository.IntLoginRepo;
 import com.sevael.yanmar.service.IntLoginService;
 import com.sevael.yanmar.util.AppConstants;
+import com.sevael.yanmar.exception.CustomException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -40,12 +41,12 @@ public class IntLoginServiceImpl implements IntLoginService {
 			
 			//Check Password
 			if(!passwordEncoder.matches(loginRequest.getPassword(),intuser.getPassword())){
-			    throw new RuntimeException("Invalid credentials");
+			    throw new CustomException("Invalid credentials");
 			}
 			
 			//Check active status
 			if(intuser.getIsactive() != AppConstants.STATUS_ACTIVE) {
-				throw new RuntimeException("Account Not Found or Inactive");
+				throw new CustomException("Account Not Found or Inactive");
 			}
 			
 //	        Generate JWT token
@@ -58,10 +59,10 @@ public class IntLoginServiceImpl implements IntLoginService {
 	        		.signWith(key, SignatureAlgorithm.HS256) // <== FIX: use Key here
 	                .compact();
 	        
-			return new IntLoginResponse("Login Successful", token);
+			return new IntLoginResponse(token, true);
 		}
 		else {
-			throw new RuntimeException("User not found");
+			throw new CustomException("User not found");
 		}	
 	}
 

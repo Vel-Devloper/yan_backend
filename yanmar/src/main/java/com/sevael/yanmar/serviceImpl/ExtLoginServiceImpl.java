@@ -1,6 +1,9 @@
 package com.sevael.yanmar.serviceImpl;
 
+import java.util.Date;
 import java.util.Optional;
+
+import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +14,12 @@ import com.sevael.yanmar.dto.ExtLoginResponse;
 import com.sevael.yanmar.entity.ExtUserLogin;
 import com.sevael.yanmar.repository.ExtLoginRepo;
 import com.sevael.yanmar.service.ExtLoginService;
+import com.sevael.yanmar.util.AppConstants;
+import com.sevael.yanmar.exception.CustomException;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @Service
 public class ExtLoginServiceImpl implements ExtLoginService{
@@ -20,7 +29,8 @@ public class ExtLoginServiceImpl implements ExtLoginService{
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
+	
+	SecretKey key = Keys.hmacShaKeyFor("mySecretKey12345mySecretKey12345".getBytes());
 	
 	@Override
 	public ExtLoginResponse login(ExtLoginRequest extloginrequest) {
@@ -33,18 +43,28 @@ public class ExtLoginServiceImpl implements ExtLoginService{
 			
 			//Check Password
 			if(!passwordEncoder.matches(extloginrequest.getPassword(),extuser.getPassword())){
-			    throw new RuntimeException("Invalid credentials");
+			    throw new CustomException("Invalid credentials");
 			}
 			
 			//Check active status
-			if(extuser.getIsactive()==0) {
-				throw new RuntimeException("Account Not Found or Inactive");
+			if(extuser.getIsactive() != AppConstants.STATUS_ACTIVE) {
+				throw new CustomException("Account Not Found or Inactive");
 			}
-			return new ExtLoginResponse("Login Successful, Logged in as external user");
+			
+//			Generate JWT token
+			String token = Jwts.builder()
+					.setSubject(extuser.getVendorid())
+					.claim("username", extuser.getUsername())
+					.setIssuedAt(new Date())
+					.setExpiration(new Date(System.currentTimeMillis() + 20 * 60 * 1000))
+					.signWith(key,SignatureAlgorithm.HS256)
+					.compact();
+			
+			return new ExtLoginResponse(token, true);
 			
 		}
 		else {
-			throw new RuntimeException("User Not Found");
+			throw new CustomException("User Not Found");
 		}
 	}
 }

@@ -56,10 +56,11 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 //	    String requestTypeLabel = (saved.getRequest_type() == 1) ? "automatic" : "manual";
 	    
 //	    Generate Form Link
-	    String formLink = BASE_URL + "?token=" + saved.getUuidtoken();
+	    String formLink = null;
 	    
 	    if (saved.getVisitor_email() != null && !saved.getVisitor_email().isBlank()) {
-	        emailUtil.sendAppointmentLink(saved.getVisitor_email(), formLink);
+	    	formLink = BASE_URL + "?token=" + saved.getUuidtoken();
+	    	emailUtil.sendAppointmentLink(saved.getVisitor_email(), formLink);
 	    }
 	    
 	    return new AppointResponse(
@@ -68,7 +69,8 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	    		saved.getRequest_type(),
 	            saved.getVisitor_email(),
 	            saved.getAppointment_type(),
-	            formLink
+	            formLink,
+	            saved.getAppointment_date()
 	    		);
 	}
 	

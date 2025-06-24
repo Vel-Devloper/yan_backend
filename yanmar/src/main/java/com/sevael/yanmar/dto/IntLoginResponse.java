@@ -2,14 +2,14 @@ package com.sevael.yanmar.dto;
 
 public class IntLoginResponse {
 	private String token; // instead of sending userId/name/role openly
-    private String message;
+    private boolean success;
 	
 //	Constructors
 	public IntLoginResponse() {}
 	
-	public IntLoginResponse(String token,String message) {
+	public IntLoginResponse(String token,boolean success) {
 		this.token = token;
-		this.message = message;
+		this.success = success;
 	}
 	
 //	Getters & Setters
@@ -22,12 +22,11 @@ public class IntLoginResponse {
 		this.token = token;
 	}
 
-	public String getMessage() {
-		return message;
+	public boolean isSuccess() {
+		return success;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
-	
 }

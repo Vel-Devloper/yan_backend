@@ -63,7 +63,7 @@ public class VisitorFormServiceImpl implements VisitorFormService{
                 vdeviceformRepo.save(deviceForm);
             }
             count++;
-        // ✅ 2. Handle vehicleList (if present)
+        //  2. Handle vehicleList (if present)
         if (submissionDTO.getVehicleList() != null && vehicleIndex < submissionDTO.getVehicleList().size()) {
             	VVehicleDetailsDTO vehicleDTO = submissionDTO.getVehicleList().get(vehicleIndex);
 

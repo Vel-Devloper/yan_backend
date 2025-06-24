@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
+		<version>3.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sevael</groupId>
@@ -27,7 +27,9 @@
 		<url/>
 	</scm>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>21</java.version>
+		<spring-boot.version>3.2.0</spring-boot.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -106,7 +108,7 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -125,6 +127,36 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
+	
+	<build>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+        </resource>
+    </resources>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <!-- <version>3.11.0</version>  Ensure compatibility with Java 21 -->
+            <configuration>
+                <release>21</release>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-configuration-processor</artifactId>
+                        <version>${spring-boot.version}</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+
 
 </project>
