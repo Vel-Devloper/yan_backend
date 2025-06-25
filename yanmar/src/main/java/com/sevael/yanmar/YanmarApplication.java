@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class YanmarApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(YanmarApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(YanmarApplication.class, args);
+    }
 }
