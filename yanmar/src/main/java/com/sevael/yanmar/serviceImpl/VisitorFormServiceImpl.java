@@ -111,7 +111,7 @@ public class VisitorFormServiceImpl implements VisitorFormService{
                 deviceForm.setVisitoruserdetailsform(savedUser); // Set relation
                 vdeviceformRepo.save(deviceForm);
             }
-            count++;
+  
             
 	        //  2. Handle vehicleList (if present)
 	        if (submissionDTO.getVehicleList() != null && vehicleIndex < submissionDTO.getVehicleList().size()) {
