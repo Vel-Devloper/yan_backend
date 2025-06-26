@@ -37,6 +37,9 @@ public class VisitorUserDetailsForm {
 //	private VisitorVehicleDetailsForm vehicle;
 	
 	private int approval_status;
+	
+	@Column(name = "photo_path")
+	private String photoPath;
 
 	public Long getId() {
 		return id;
@@ -150,6 +153,18 @@ public class VisitorUserDetailsForm {
 	public void setVehicle_id(Long vehicle_id) {
 		this.vehicleid = vehicle_id;
 	}
+	
+	
+
+	public String getPhotoPath() {
+		return photoPath;
+	}
+
+	public void setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
+	}
+
+
 
 	@OneToMany(mappedBy = "visitoruserdetailsform", cascade = CascadeType.ALL)
     private List<VisitorDeviceDetailsForm> visitordevicedetails;

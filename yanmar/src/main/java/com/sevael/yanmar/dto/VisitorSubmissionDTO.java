@@ -2,6 +2,7 @@ package com.sevael.yanmar.dto;
 
 import java.util.List;
 
+
 public class VisitorSubmissionDTO {
 	private List<WrapperVisitorFormDTO> visitorList;
 	private List<VVehicleDetailsDTO> vehicleList;

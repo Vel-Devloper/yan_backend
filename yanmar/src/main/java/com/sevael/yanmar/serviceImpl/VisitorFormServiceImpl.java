@@ -4,6 +4,10 @@ package com.sevael.yanmar.serviceImpl;
 //import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.*;
+import java.util.List;
+import java.io.IOException;
 
 import com.sevael.yanmar.dto.VVehicleDetailsDTO;
 import com.sevael.yanmar.dto.VisitorSubmissionDTO;
@@ -29,7 +33,7 @@ public class VisitorFormServiceImpl implements VisitorFormService{
 	VVehicleFormRepo vvehicleformrepo;
 	
 	@Override
-	public void saveEntry(VisitorSubmissionDTO submissionDTO){
+	public void saveEntry(VisitorSubmissionDTO submissionDTO, List<MultipartFile> photoFiles){
 		
 		int count=0;
 		int vehicleIndex=0; //for tracking vehicles
@@ -49,7 +53,28 @@ public class VisitorFormServiceImpl implements VisitorFormService{
             
             // Set visitor row (M, M1, M2, etc.)
             userForm.setVisitor_row(count == 0 ? "M" : "M" + count);
+            
+         // ✅ Save Photo if available
+            if (photoFiles != null && count < photoFiles.size()) {
+                MultipartFile photo = photoFiles.get(count);
+                if (!photo.isEmpty()) {
+                    try {
+                        String uploadDir = "uploads/photos/"; // Change as needed
+                        Files.createDirectories(Paths.get(uploadDir));
 
+                        String fileName = System.currentTimeMillis() + "_" + photo.getOriginalFilename();
+                        Path filePath = Paths.get(uploadDir, fileName);
+
+                        Files.write(filePath, photo.getBytes());
+                        userForm.setPhotoPath(filePath.toString());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        // Log error and continue without saving photo
+                    }
+                }
+            }
+            
             // Save user
             VisitorUserDetailsForm savedUser = vuserformRepo.save(userForm);
             

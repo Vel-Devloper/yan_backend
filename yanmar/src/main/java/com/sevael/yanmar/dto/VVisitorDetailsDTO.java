@@ -1,5 +1,7 @@
 package com.sevael.yanmar.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class VVisitorDetailsDTO {
 	private String firstname;
 	private String lastname;
@@ -10,12 +12,13 @@ public class VVisitorDetailsDTO {
 	private int proof_type;
 	private String proof_id;
 	private String visitor_row;
+	private MultipartFile photoFile;
 	
 //	Constructors
 	public VVisitorDetailsDTO() {}
 	
 	public VVisitorDetailsDTO(String firstname,String lastname,String email,Long phone_no,String org_name,
-			String org_address,int proof_type,String proof_id,String visitor_row) {
+			String org_address,int proof_type,String proof_id,String visitor_row,MultipartFile photoFile) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
@@ -25,6 +28,7 @@ public class VVisitorDetailsDTO {
 		this.proof_type = proof_type;
 		this.proof_id = proof_id;
 		this.visitor_row = visitor_row;
+		this.photoFile = photoFile;
 	}
 	
 //	This Constructor is used to get the details to the front end.
@@ -104,5 +108,14 @@ public class VVisitorDetailsDTO {
 	public void setVisitor_row(String visitor_row) {
 		this.visitor_row = visitor_row;
 	}
+
+	public MultipartFile getPhotoFile() {
+		return photoFile;
+	}
+
+	public void setPhotoFile(MultipartFile photoFile) {
+		this.photoFile = photoFile;
+	}
+	
 	
 }
