@@ -1,6 +1,7 @@
 package com.sevael.yanmar.controller;
 
 import com.sevael.yanmar.service.VisitorFormService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sevael.yanmar.dto.VisitorSubmissionDTO;
 
 import java.util.List;
@@ -19,10 +20,25 @@ public class VisitorFormController {
 	private VisitorFormService visitorformService;
 	
 	@PostMapping(value = "/submit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> submitEntry(@RequestBody VisitorSubmissionDTO Submission,
+    public ResponseEntity<String> submitEntry(
+    		@RequestPart("visitorData") String visitorDataJson,
     		@RequestPart("photoFiles") List<MultipartFile> photoFiles) {
 		
-		visitorformService.saveEntry(Submission,photoFiles);
-	    return ResponseEntity.ok("Data saved successfully");
+//		visitorformService.saveEntry(Submission,photoFiles);
+//	    return ResponseEntity.ok("Data saved successfully");
+	    
+		try {
+            // Convert JSON string to DTO
+            ObjectMapper objectMapper = new ObjectMapper();
+            VisitorSubmissionDTO submission = objectMapper.readValue(visitorDataJson, VisitorSubmissionDTO.class);
+
+            // Pass to service
+            visitorformService.saveEntry(submission, photoFiles);
+            return ResponseEntity.ok("Data saved successfully with photos");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error processing visitor data: " + e.getMessage());
+        }
     }
 }
