@@ -22,6 +22,13 @@ public class MaterialAppoint {
 	private int priority_level;
 	
 	private String purpose;
+	
+	private int createdby;
+	
+	private int request_type;
+	
+	@Column(unique = true, nullable = false)
+    private String uuidtoken;
 
 	public Long getId() {
 		return id;
@@ -77,6 +84,30 @@ public class MaterialAppoint {
 
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
+	}
+
+	public int getCreatedby() {
+		return createdby;
+	}
+
+	public void setCreatedby(int createdby) {
+		this.createdby = createdby;
+	}
+
+	public String getUuidtoken() {
+		return uuidtoken;
+	}
+
+	public void setUuidtoken(String uuidtoken) {
+		this.uuidtoken = uuidtoken;
+	}
+
+	public int getRequest_type() {
+		return request_type;
+	}
+
+	public void setRequest_type(int request_type) {
+		this.request_type = request_type;
 	}
 	
 }

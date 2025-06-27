@@ -8,17 +8,19 @@ public class MaterialAppointResponse {
 	private String supplier_name;
 	private int entry_type;
 	private LocalDate expec_delivery_date;
+	private String formLink;  // New field
 	
 //	Constructors
 	public MaterialAppointResponse() {}
 	
 	public MaterialAppointResponse(String message,Long id,String supplier_name,int entry_type,
-			LocalDate expec_delivery_date) {
+			LocalDate expec_delivery_date,String formLink) {
 		this.message = message;
 		this.id = id;
 		this.supplier_name = supplier_name;
 		this.entry_type = entry_type;
 		this.expec_delivery_date = expec_delivery_date;
+		this.formLink = formLink;
 
 	}
 	
@@ -61,6 +63,14 @@ public class MaterialAppointResponse {
 
 	public void setExpec_delivery_date(LocalDate expec_delivery_date) {
 		this.expec_delivery_date = expec_delivery_date;
+	}
+
+	public String getFormLink() {
+		return formLink;
+	}
+
+	public void setFormLink(String formLink) {
+		this.formLink = formLink;
 	}
 	
 

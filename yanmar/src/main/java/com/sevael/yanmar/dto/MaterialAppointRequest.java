@@ -22,6 +22,11 @@ public class MaterialAppointRequest {
 		this.priority_level = priority_level;
 		this.purpose = purpose;
 	}
+	
+//	Constructors for Type2 (Not includes Email)
+	public MaterialAppointRequest(int entry_type) {
+		this.entry_type = entry_type;
+	}
 
 	public String getSupplier_name() {
 		return supplier_name;
