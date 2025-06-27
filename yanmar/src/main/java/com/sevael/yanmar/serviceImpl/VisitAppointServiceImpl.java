@@ -7,7 +7,6 @@ import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
 import com.sevael.yanmar.entity.VisitorAppoint;
 import com.sevael.yanmar.repository.AppointRepo;
-import com.sevael.yanmar.service.EmailService;
 import com.sevael.yanmar.service.VisitAppointService;
 import com.sevael.yanmar.util.EmailUtil;
 
@@ -20,12 +19,10 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	private AppointRepo appointrepo;
 	
 	@Autowired
-	private EmailService emailService;
-	
-	@Autowired
 	private EmailUtil emailUtil;
 	
-	private static final String BASE_URL = "http://yanmar.sevael.com/visitor/form";
+//	private static final String BASE_URL = "http://yanmar.sevael.com/visitor/form";
+	private static final String BASE_URL = "http://135.13.39.201:5173/visitor/form";
 	
 	@Override
 	public AppointResponse createAppointment(AppointRequest dto) {

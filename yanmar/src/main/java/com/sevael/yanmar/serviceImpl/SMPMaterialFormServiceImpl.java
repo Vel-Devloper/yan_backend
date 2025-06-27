@@ -1,16 +1,32 @@
 package com.sevael.yanmar.serviceImpl;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.jpa.domain.JpaSort.Path;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sevael.yanmar.dto.SMPItemDetailsDTO;
 import com.sevael.yanmar.dto.SMPWrapperDTO;
+
 import com.sevael.yanmar.entity.SMP_SupplierDetails;
 import com.sevael.yanmar.entity.SMP_OtherDetails;
 import com.sevael.yanmar.entity.SMP_RequestorDetails;
 import com.sevael.yanmar.entity.SMP_ItemDetails;
 import com.sevael.yanmar.entity.SMP_DriverDetails;
 import com.sevael.yanmar.entity.SMP_VehicleDetails;
+import com.sevael.yanmar.entity.SMP_VendorAttachment;
+
 
 import com.sevael.yanmar.repository.SMPSupplierDetailsRepo;
 import com.sevael.yanmar.repository.SMPOtherDetailsRepo;
@@ -18,6 +34,7 @@ import com.sevael.yanmar.repository.SMPRequestorDetailsRepo;
 import com.sevael.yanmar.repository.SMPItemDetailsRepo;
 import com.sevael.yanmar.repository.SMPDriverDetailsRepo;
 import com.sevael.yanmar.repository.SMPVehicleDetailsRepo;
+import com.sevael.yanmar.repository.SMPVendorAttachmentRepo;
 
 import com.sevael.yanmar.service.SMPMaterialFormService;
 
@@ -36,6 +53,8 @@ public class SMPMaterialFormServiceImpl implements SMPMaterialFormService{
 	SMPDriverDetailsRepo driverdetailsrepo;
 	@Autowired
 	SMPVehicleDetailsRepo vehicledetailsrepo;
+	@Autowired
+	SMPVendorAttachmentRepo vendorAttachmentRepo;
 	
 	@Override
 	public void saveEntry(SMPWrapperDTO entry) {
@@ -71,6 +90,28 @@ public class SMPMaterialFormServiceImpl implements SMPMaterialFormService{
 			
 			requestordetailsrepo.save(requestordetails);
 			}
+			
+			if (entry.getVendorAttachments() != null && !entry.getVendorAttachments().isEmpty()) {
+			    for (MultipartFile file : entry.getVendorAttachments()) {
+			        try {
+			            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			            String uploadDir = "uploads/vendor"; // customize as needed
+			            File dir = new File(uploadDir);
+			            if (!dir.exists()) dir.mkdirs();
+
+			            Path filePath = Paths.get(uploadDir, fileName);
+			            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+			            SMP_VendorAttachment attachment = new SMP_VendorAttachment();
+			            attachment.setFilepath(filePath.toString());
+			            
+			            vendorAttachmentRepo.save(attachment);
+			        } catch (IOException e) {
+			            throw new RuntimeException("Failed to store vendor file: " + file.getOriginalFilename(), e);
+			        }
+			    }
+			}
+
 			
 			if (entry.getItems() != null) {
 				for (SMPItemDetailsDTO itemEntry : entry.getItems()) {

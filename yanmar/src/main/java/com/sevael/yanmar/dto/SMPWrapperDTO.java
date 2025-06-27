@@ -2,6 +2,8 @@ package com.sevael.yanmar.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SMPWrapperDTO {
 	
 	private SMPDriverDetailsDTO driver;
@@ -10,6 +12,9 @@ public class SMPWrapperDTO {
 	private SMPRequestorDetailsDTO requestordetails;
 	private SMPSupplierDetailsDTO supplierdetails;
 	private SMPVehicleDetailsDTO vehicle;
+	
+	private List<MultipartFile> vendorAttachments;
+
 	
 	public SMPDriverDetailsDTO getDriver() {
 		return driver;
@@ -47,4 +52,12 @@ public class SMPWrapperDTO {
 	public void setVehicle(SMPVehicleDetailsDTO vehicle) {
 		this.vehicle = vehicle;
 	}
+	public List<MultipartFile> getVendorAttachments() {
+		return vendorAttachments;
+	}
+	public void setVendorAttachments(List<MultipartFile> vendorAttachments) {
+		this.vendorAttachments = vendorAttachments;
+	}
+	
+	
 }
