@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SMPSubmissionDTO {
+	 
+	 private String token;   
 	 private SMPWrapperDTO materialform;
 	 private List<MultipartFile> vendorAttachments;
 	 
@@ -27,7 +29,15 @@ public class SMPSubmissionDTO {
             this.materialform.setVendorAttachments(vendorAttachments);
         }
 	}
-	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	
 	  
 }

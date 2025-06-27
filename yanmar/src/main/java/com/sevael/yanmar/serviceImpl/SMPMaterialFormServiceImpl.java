@@ -6,12 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-
-import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.jpa.domain.JpaSort.Path;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,15 +20,16 @@ import com.sevael.yanmar.entity.SMP_SupplierDetails;
 import com.sevael.yanmar.entity.SMP_OtherDetails;
 import com.sevael.yanmar.entity.SMP_RequestorDetails;
 import com.sevael.yanmar.entity.SMP_ItemDetails;
+import com.sevael.yanmar.entity.MaterialAppoint;
 import com.sevael.yanmar.entity.SMP_DriverDetails;
 import com.sevael.yanmar.entity.SMP_VehicleDetails;
 import com.sevael.yanmar.entity.SMP_VendorAttachment;
-
 
 import com.sevael.yanmar.repository.SMPSupplierDetailsRepo;
 import com.sevael.yanmar.repository.SMPOtherDetailsRepo;
 import com.sevael.yanmar.repository.SMPRequestorDetailsRepo;
 import com.sevael.yanmar.repository.SMPItemDetailsRepo;
+import com.sevael.yanmar.repository.MaterialAppointRepo;
 import com.sevael.yanmar.repository.SMPDriverDetailsRepo;
 import com.sevael.yanmar.repository.SMPVehicleDetailsRepo;
 import com.sevael.yanmar.repository.SMPVendorAttachmentRepo;
@@ -55,10 +53,30 @@ public class SMPMaterialFormServiceImpl implements SMPMaterialFormService{
 	SMPVehicleDetailsRepo vehicledetailsrepo;
 	@Autowired
 	SMPVendorAttachmentRepo vendorAttachmentRepo;
+	@Autowired
+	MaterialAppointRepo materialappointrepo;
 	
 	@Override
 	public void saveEntry(SMPWrapperDTO entry) {
 			
+		 	// Get material request ID from token
+			Long materialRequestId = null;
+	
+			if (entry.getToken() != null && !entry.getToken().isBlank()) {
+			    // Automatic request: resolve token to ID
+			    Optional<MaterialAppoint> optional = materialappointrepo.findByUuidtoken(entry.getToken());
+			    if (optional.isPresent()) {
+			        materialRequestId = optional.get().getId();
+			    } else {
+			        throw new RuntimeException("Invalid token. No material appointment found.");
+			    }
+			} else if (entry.getMat_requestid() != null) {
+			    // Manual request: use provided request ID
+			    materialRequestId = entry.getMat_requestid();
+			} else {
+			    throw new RuntimeException("Missing token or material request ID.");
+			}
+				
 			if (entry.getSupplierdetails() !=null ) {
 			SMP_SupplierDetails supplierdetails = new SMP_SupplierDetails();
 			supplierdetails.setSupplier_name(entry.getSupplierdetails().getSupplier_name());
@@ -69,6 +87,10 @@ public class SMPMaterialFormServiceImpl implements SMPMaterialFormService{
 		  	supplierdetails.setGstnumber(entry.getSupplierdetails().getGstnumber());
 		  	supplierdetails.setState(entry.getSupplierdetails().getState());
 		  	supplierdetails.setLocation(entry.getSupplierdetails().getLocation());
+		  	
+		  	if (materialRequestId != null) {
+		  		supplierdetails.setMat_requestid(materialRequestId);  // ✅ Set the foreign key
+	        }
 		  	
 		  	supplierdetailsrepo.save(supplierdetails);
 			}

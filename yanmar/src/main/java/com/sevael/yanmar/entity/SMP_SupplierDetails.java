@@ -26,6 +26,9 @@ public class SMP_SupplierDetails {
 	private String state;
 	
 	private String location;
+	
+	@Column(name = "mat_requestid")
+	private Long mat_requestid;
 
 	public Long getId() {
 		return id;
@@ -98,4 +101,14 @@ public class SMP_SupplierDetails {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	public Long getMat_requestid() {
+		return mat_requestid;
+	}
+
+	public void setMat_requestid(Long mat_requestid) {
+		this.mat_requestid = mat_requestid;
+	}
+	
+	
 }

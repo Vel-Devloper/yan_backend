@@ -12,6 +12,9 @@ public class SMPWrapperDTO {
 	private SMPRequestorDetailsDTO requestordetails;
 	private SMPSupplierDetailsDTO supplierdetails;
 	private SMPVehicleDetailsDTO vehicle;
+	private Long mat_requestid;
+	private String token;   
+	private SMPWrapperDTO materialform;
 	
 	private List<MultipartFile> vendorAttachments;
 
@@ -57,6 +60,24 @@ public class SMPWrapperDTO {
 	}
 	public void setVendorAttachments(List<MultipartFile> vendorAttachments) {
 		this.vendorAttachments = vendorAttachments;
+	}
+	public Long getMat_requestid() {
+		return mat_requestid;
+	}
+	public void setMat_requestid(Long mat_requestid) {
+		this.mat_requestid = mat_requestid;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public SMPWrapperDTO getMaterialform() {
+		return materialform;
+	}
+	public void setMaterialform(SMPWrapperDTO materialform) {
+		this.materialform = materialform;
 	}
 	
 	
