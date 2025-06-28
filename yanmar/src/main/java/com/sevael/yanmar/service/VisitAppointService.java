@@ -5,4 +5,5 @@ import com.sevael.yanmar.dto.AppointResponse;
 
 public interface VisitAppointService {
 	AppointResponse createAppointment(AppointRequest dto);
+	
 }

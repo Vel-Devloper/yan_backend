@@ -29,8 +29,9 @@ public class VisitorAppoint {
 	
 	private int created_by;
 	
-	@Column(unique = true, nullable = false)
-    private String uuidtoken;
+	@Column(unique = true, nullable = false,name="uuidtoken")
+    private String token;
+	
 	
 	public long getId() {
 		return id;
@@ -113,13 +114,12 @@ public class VisitorAppoint {
 		this.location = location;
 	}
 
-
-	public String getUuidtoken() {
-		return uuidtoken;
+	public String getToken() {
+		return token;
 	}
 
-	public void setUuidtoken(String uuidtoken) {
-		this.uuidtoken = uuidtoken;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public void setId(Long id) {

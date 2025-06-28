@@ -26,10 +26,10 @@ public class AppointRequest {
 	
 //	Constructors for Type2 (Not includes Email)
 	public AppointRequest(int appointment_type,String duration,
-			LocalDate date,int location) {	
+			LocalDate appointment_date,int location) {	
 		this.appointment_type = appointment_type;
 		this.duration = duration;
-		this.appointment_date = date;
+		this.appointment_date = appointment_date;
 		this.location = location;
 	}
 

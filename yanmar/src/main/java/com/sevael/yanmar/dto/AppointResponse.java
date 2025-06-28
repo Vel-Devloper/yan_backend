@@ -10,12 +10,13 @@ public class AppointResponse {
     private int appointment_type;
     private LocalDate appointment_date;
     private String formLink;  // New field
+    private String token;
     
 //	Constructors
 	public AppointResponse() {}
 	
 //	Constructors for Type1 (Includes Email)
-	public AppointResponse(Long id,String message,int request_type,String visitor_email,int appointment_type,String formLink,LocalDate appointment_date) {
+	public AppointResponse(Long id,String message,int request_type,String visitor_email,int appointment_type,String formLink,LocalDate appointment_date,String token) {
 		this.id = id;
 		this.message = message;
 		this.request_type = request_type;
@@ -23,16 +24,17 @@ public class AppointResponse {
 		this.appointment_type = appointment_type;
 		this.formLink=formLink; // New field
 		this.appointment_date = appointment_date;
-		
+		this.token = token;
 	}
 	
 //	Constructors for Type2 (Not Includes Email)
-	public AppointResponse(Long id,String message,int request_type,int appointment_type,LocalDate appointment_date) {
+	public AppointResponse(Long id,String message,int request_type,int appointment_type,LocalDate appointment_date,String token) {
 		this.id = id;
 		this.message = message;
 		this.request_type = request_type;
 		this.appointment_type = appointment_type;
 		this.appointment_date = appointment_date;
+		this.token = token;
 		
 	}
 	
@@ -101,4 +103,14 @@ public class AppointResponse {
 	public void setFormLink(String formLink) {
 		this.formLink = formLink;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+
 }

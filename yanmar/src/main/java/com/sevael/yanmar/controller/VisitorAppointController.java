@@ -31,7 +31,7 @@ public class VisitorAppointController {
 	
 	@GetMapping("/appointment")
 	public ResponseEntity<VisitorAppoint> getAppointmentByToken(@RequestParam String token) {
-	    Optional<VisitorAppoint> appointment = appointrepo.findByUuidtoken(token);
+	    Optional<VisitorAppoint> appointment = appointrepo.findBytoken(token);
 	    if (appointment.isPresent()) {
 	        return ResponseEntity.ok(appointment.get());
 	    } else {

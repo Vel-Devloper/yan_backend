@@ -46,7 +46,7 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	    }
 	    
 	    String uuidToken = UUID.randomUUID().toString();
-	    visitorpass.setUuidtoken(uuidToken);
+	    visitorpass.setToken(uuidToken);
 	    
 	    VisitorAppoint saved = appointrepo.save(visitorpass);
 	    
@@ -56,7 +56,7 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	    String formLink = null;
 	    
 	    if (saved.getVisitor_email() != null && !saved.getVisitor_email().isBlank()) {
-	    	formLink = BASE_URL + "?token=" + saved.getUuidtoken();
+	    	formLink = BASE_URL + "?token=" + saved.getToken();
 	    	emailUtil.sendAppointmentLink(saved.getVisitor_email(), formLink);
 	    }
 	    
@@ -67,7 +67,8 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	            saved.getVisitor_email(),
 	            saved.getAppointment_type(),
 	            formLink,
-	            saved.getAppointment_date()
+	            saved.getAppointment_date(),
+	            saved.getToken()
 	    		);
 	}
 	

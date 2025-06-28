@@ -2,6 +2,7 @@ package com.sevael.yanmar.controller;
 
 import com.sevael.yanmar.service.VisitorFormService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sevael.yanmar.dto.VisitorFullDetailsDTO;
 import com.sevael.yanmar.dto.VisitorSubmissionDTO;
 
 import java.util.List;
@@ -41,4 +42,10 @@ public class VisitorFormController {
             return ResponseEntity.badRequest().body("Error processing visitor data: " + e.getMessage());
         }
     }
+		
+	@GetMapping("/details/{appointmentId}")
+	public ResponseEntity<List<VisitorFullDetailsDTO>> getDetails(@PathVariable Long appointmentId) {
+	    List<VisitorFullDetailsDTO> data = visitorformService.getAllVisitorDetailsByAppointment(appointmentId);
+	    return ResponseEntity.ok(data);
+	}
 }

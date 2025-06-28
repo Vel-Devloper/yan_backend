@@ -1,5 +1,6 @@
 package com.sevael.yanmar.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ public class VisitorUserDetailsForm {
 	
 	private String email;
 	
-	private Long phone_no;
+	private String phone_no;
 	
 	private String org_name;
 	
@@ -29,17 +30,26 @@ public class VisitorUserDetailsForm {
 	
 	private Long vehicleid;
 	
-	private Long appointment_id;
+	@Column(name = "appointment_id")
+	private Long appointmentId;
+	
 	
 	private String visitor_row;
+	
 //	@ManyToOne
 //	@JoinColumn(name = "vehicle_id") // Foreign key in the user table
 //	private VisitorVehicleDetailsForm vehicle;
 	
 	private int approval_status;
 	
+	private LocalDate checkin;
+	
+	private LocalDate checkout;
+	
 	@Column(name = "photo_path")
 	private String photoPath;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -73,11 +83,13 @@ public class VisitorUserDetailsForm {
 		this.email = email;
 	}
 
-	public Long getPhone_no() {
+
+
+	public String getPhone_no() {
 		return phone_no;
 	}
 
-	public void setPhone_no(Long phone_no) {
+	public void setPhone_no(String phone_no) {
 		this.phone_no = phone_no;
 	}
 
@@ -138,16 +150,18 @@ public class VisitorUserDetailsForm {
 //	}
 
 
-	public Long getAppointment_id() {
-		return appointment_id;
-	}
-
-	public void setAppointment_id(Long appointment_id) {
-		this.appointment_id = appointment_id;
-	}
+	
 
 	public Long getVehicle_id() {
 		return vehicleid;
+	}
+
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
 	}
 
 	public void setVehicle_id(Long vehicle_id) {
@@ -162,6 +176,24 @@ public class VisitorUserDetailsForm {
 
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
+	}
+	
+	
+
+	public LocalDate getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(LocalDate checkin) {
+		this.checkin = checkin;
+	}
+
+	public LocalDate getCheckout() {
+		return checkout;
+	}
+
+	public void setCheckout(LocalDate checkout) {
+		this.checkout = checkout;
 	}
 
 

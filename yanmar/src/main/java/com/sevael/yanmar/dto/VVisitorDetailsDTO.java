@@ -6,7 +6,7 @@ public class VVisitorDetailsDTO {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private Long phone_no;
+	private String phone_no;
 	private String org_name;
 	private String org_address;
 	private int proof_type;
@@ -17,7 +17,7 @@ public class VVisitorDetailsDTO {
 //	Constructors
 	public VVisitorDetailsDTO() {}
 	
-	public VVisitorDetailsDTO(String firstname,String lastname,String email,Long phone_no,String org_name,
+	public VVisitorDetailsDTO(String firstname,String lastname,String email,String phone_no,String org_name,
 			String org_address,int proof_type,String proof_id,String visitor_row,MultipartFile photoFile) {
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -61,11 +61,13 @@ public class VVisitorDetailsDTO {
 		this.email = email;
 	}
 
-	public Long getPhone_no() {
+	
+
+	public String getPhone_no() {
 		return phone_no;
 	}
 
-	public void setPhone_no(Long phone_no) {
+	public void setPhone_no(String phone_no) {
 		this.phone_no = phone_no;
 	}
 
