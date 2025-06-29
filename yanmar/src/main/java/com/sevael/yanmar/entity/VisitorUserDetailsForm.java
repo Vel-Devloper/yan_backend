@@ -1,6 +1,7 @@
 package com.sevael.yanmar.entity;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -30,21 +31,20 @@ public class VisitorUserDetailsForm {
 	
 	private Long vehicleid;
 	
-	@Column(name = "appointment_id")
-	private Long appointmentId;
 	
+	@ManyToOne
+	@JoinColumn(name = "appointment_id", referencedColumnName = "id")
+	private VisitorAppoint visitorAppoint;
+
 	
 	private String visitor_row;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "vehicle_id") // Foreign key in the user table
-//	private VisitorVehicleDetailsForm vehicle;
+
 	
 	private int approval_status;
 	
-	private LocalDate checkin;
+	private LocalDateTime  checkin;
 	
-	private LocalDate checkout;
+	private LocalDateTime  checkout;
 	
 	@Column(name = "photo_path")
 	private String photoPath;
@@ -140,29 +140,11 @@ public class VisitorUserDetailsForm {
 	public void setVisitor_row(String visitor_row) {
 		this.visitor_row = visitor_row;
 	}
-	
-//	public VisitorVehicleDetailsForm getVehicle() {
-//		return vehicle;
-//	}
-//
-//	public void setVehicle(VisitorVehicleDetailsForm vehicle) {
-//		this.vehicle = vehicle;
-//	}
-
-
-	
 
 	public Long getVehicle_id() {
 		return vehicleid;
 	}
 
-	public Long getAppointmentId() {
-		return appointmentId;
-	}
-
-	public void setAppointmentId(Long appointmentId) {
-		this.appointmentId = appointmentId;
-	}
 
 	public void setVehicle_id(Long vehicle_id) {
 		this.vehicleid = vehicle_id;
@@ -180,21 +162,35 @@ public class VisitorUserDetailsForm {
 	
 	
 
-	public LocalDate getCheckin() {
+
+
+
+	public LocalDateTime getCheckin() {
 		return checkin;
 	}
 
-	public void setCheckin(LocalDate checkin) {
+	public void setCheckin(LocalDateTime checkin) {
 		this.checkin = checkin;
 	}
 
-	public LocalDate getCheckout() {
+	public LocalDateTime getCheckout() {
 		return checkout;
 	}
 
-	public void setCheckout(LocalDate checkout) {
+	public void setCheckout(LocalDateTime checkout) {
 		this.checkout = checkout;
 	}
+
+	public VisitorAppoint getVisitorAppoint() {
+		return visitorAppoint;
+	}
+
+	public void setVisitorAppoint(VisitorAppoint visitorAppoint) {
+		this.visitorAppoint = visitorAppoint;
+	}
+
+
+
 
 
 

@@ -7,5 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VUserFormRepo extends JpaRepository<VisitorUserDetailsForm,Long>{
-	List<VisitorUserDetailsForm> findByAppointmentId(Long appointmentId);
+//	List<VisitorUserDetailsForm> findByAppointmentId(Long appointmentId);
+	List<VisitorUserDetailsForm> findByVisitorAppoint_Id(Long appointmentId);
+
 }

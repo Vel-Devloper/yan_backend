@@ -2,10 +2,12 @@ package com.sevael.yanmar.controller;
 
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
+import com.sevael.yanmar.dto.AppointmentDisplayDTO;
 import com.sevael.yanmar.entity.VisitorAppoint;
 import com.sevael.yanmar.service.VisitAppointService;
 import com.sevael.yanmar.repository.AppointRepo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +47,9 @@ public class VisitorAppointController {
 //	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 //	    }
 	}
+	
+	@GetMapping("/table")
+    public ResponseEntity<List<AppointmentDisplayDTO>> getTableData() {
+        return ResponseEntity.ok(visitappointService.getDisplayAppointments());
+    }
 }

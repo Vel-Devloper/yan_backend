@@ -1,5 +1,8 @@
 package com.sevael.yanmar.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class VisitorFullDetailsDTO {
 	
     private Long userId;
@@ -11,7 +14,11 @@ public class VisitorFullDetailsDTO {
     private String org_address;
     private int proof_type;
     private String proof_id;
+    private int appointment_type;
+    private LocalDateTime checkin;
+    private LocalDateTime checkout;
     private String photoPath;
+    private LocalDate appointment_date;
 
     private Long deviceId;
     private String device_name;
@@ -29,7 +36,7 @@ public class VisitorFullDetailsDTO {
     
     public VisitorFullDetailsDTO(Long userId,String firstname,String lastname,String phone_no,String email,String org_name,String org_address,
  int proof_type, String proof_id, String photoPath, Long deviceId,String device_name,String device_model,String device_type,Long vehicleId,String vehicle_no, 
- String model, String type,Long appointmentId) {
+ String model, String type,Long appointmentId,int appointment_type) {
     	this.userId = userId;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -49,8 +56,23 @@ public class VisitorFullDetailsDTO {
         this.model = model;
         this.type = type;
         this.appointmentId = appointmentId;
+        this.appointment_type = appointment_type;
     }
     
+    public VisitorFullDetailsDTO(String firstname,int appointment_type,String org_name,String email,LocalDate appointment_date,LocalDateTime checkin
+    		,LocalDateTime checkout, String photoPath,String device_name,String device_model,String device_type) {
+    		        this.firstname = firstname;
+    		        this.appointment_type = appointment_type;
+    		        this.org_name = org_name;
+    		        this.email = email;
+    		        this.appointment_date = appointment_date;
+    		        this.checkin = checkin;
+    		        this.checkout = checkout;
+    		        this.photoPath = photoPath;
+    		        this.device_name = device_name;
+    		        this.device_model = device_model;
+    		        this.device_type = device_type;
+    		    }
     
 	public Long getUserId() {
 		return userId;
@@ -202,6 +224,38 @@ public class VisitorFullDetailsDTO {
 
 	public void setAppointmentId(Long appointmentId) {
 		this.appointmentId = appointmentId;
+	}
+
+	public int getAppointment_type() {
+		return appointment_type;
+	}
+
+	public void setAppointment_type(int appointment_type) {
+		this.appointment_type = appointment_type;
+	}
+
+	public LocalDateTime getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(LocalDateTime checkin) {
+		this.checkin = checkin;
+	}
+
+	public LocalDateTime getCheckout() {
+		return checkout;
+	}
+
+	public void setCheckout(LocalDateTime checkout) {
+		this.checkout = checkout;
+	}
+
+	public LocalDate getAppointment_date() {
+		return appointment_date;
+	}
+
+	public void setAppointment_date(LocalDate appointment_date) {
+		this.appointment_date = appointment_date;
 	}
  
     

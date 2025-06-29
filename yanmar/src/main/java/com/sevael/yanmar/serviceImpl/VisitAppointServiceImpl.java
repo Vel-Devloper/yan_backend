@@ -5,11 +5,13 @@ import org.springframework.stereotype.Service;
 
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
+import com.sevael.yanmar.dto.AppointmentDisplayDTO;
 import com.sevael.yanmar.entity.VisitorAppoint;
 import com.sevael.yanmar.repository.AppointRepo;
 import com.sevael.yanmar.service.VisitAppointService;
 import com.sevael.yanmar.util.EmailUtil;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -70,6 +72,10 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	            saved.getAppointment_date(),
 	            saved.getToken()
 	    		);
+	}
+	@Override
+	public List<AppointmentDisplayDTO> getDisplayAppointments() {
+	    return appointrepo.fetchAppointmentsWithMainVisitors();
 	}
 	
 }

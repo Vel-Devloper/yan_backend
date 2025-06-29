@@ -1,6 +1,7 @@
 package com.sevael.yanmar.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -32,6 +33,8 @@ public class VisitorAppoint {
 	@Column(unique = true, nullable = false,name="uuidtoken")
     private String token;
 	
+	@OneToMany(mappedBy = "visitorAppoint", cascade = CascadeType.ALL)
+	private List<VisitorUserDetailsForm> visitorDetails;
 	
 	public long getId() {
 		return id;

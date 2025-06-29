@@ -15,18 +15,24 @@ import org.springframework.stereotype.Repository;
 public interface AppointRepo extends JpaRepository<VisitorAppoint, Long>{
 
 	Optional<VisitorAppoint> findBytoken(String token);	
-//	List<VisitorAppoint> findAllByStatus(String status); 
-	
-//	@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(v.firstname, a.appointment_date, a.appointment_type, a.checkin, a.checkout, a.approval_status) " +
-//		       "FROM AppointmentEntity a JOIN VisitorEntity v ON a.id = v.")
-//		List<AppointmentTableDTO> fetchAllAppointmentsForDisplay();
+
+	@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(" +
+		       "v.firstname, " +
+		       "a.appointment_date, a.appointment_type, v.checkin, v.checkout, a.approval_status) " +
+		       "FROM VisitorAppoint a JOIN a.visitorDetails v " +
+		       "WHERE v.visitor_row = 'M'")
+		List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
 	
 //	@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(" +
-//		       "a.id, CONCAT(v.firstname, ' ', v.lastname), " +
-//		       "CAST(a.appointment_date AS string), a.hostname, " +
-//		       "CAST(a.appointment_type AS string), " +
-//		       "CAST(v.checkin AS string), CAST(v.checkout AS string)) " +
+//		       "v.firstname, " +
+//		       "a.appointment_date, a.appointment_type, v.checkin, v.checkout, a.approval_status) " +
 //		       "FROM VisitorAppoint a JOIN a.visitorDetails v " +
 //		       "WHERE v.visitor_row = 'M'")
-//	List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
+//		List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
 }
+
+//List<VisitorAppoint> findAllByStatus(String status); 
+
+//@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(v.firstname, a.appointment_date, a.appointment_type, a.checkin, a.checkout, a.approval_status) " +
+//	       "FROM AppointmentEntity a JOIN VisitorEntity v ON a.id = v.")
+//	List<AppointmentTableDTO> fetchAllAppointmentsForDisplay();

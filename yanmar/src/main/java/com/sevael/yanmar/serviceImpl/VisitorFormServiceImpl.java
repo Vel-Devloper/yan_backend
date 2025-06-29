@@ -317,6 +317,9 @@ import com.sevael.yanmar.repository.VDeviceFormRepo;
 import com.sevael.yanmar.repository.VVehicleFormRepo;
 import com.sevael.yanmar.service.VisitorFormService;
 
+import com.sevael.yanmar.entity.VisitorUserDetailsForm;
+
+
 @Service
 public class VisitorFormServiceImpl implements VisitorFormService {
 
@@ -338,12 +341,13 @@ public class VisitorFormServiceImpl implements VisitorFormService {
     public void saveEntry(VisitorSubmissionDTO submissionDTO, List<MultipartFile> photoFiles) {
         int visitorIndex = 0;
         int vehicleIndex = 0;
-        Long appointmentId = null;
+        
+        VisitorAppoint appointment = null;
 
         if (submissionDTO.getToken() != null && !submissionDTO.getToken().isBlank()) {
             Optional<VisitorAppoint> optional = appointRepo.findBytoken(submissionDTO.getToken());
             if (optional.isPresent()) {
-                appointmentId = optional.get().getId();
+            	appointment = optional.get();
             } else {
                 throw new RuntimeException("Invalid token. No appointment found.");
             }
@@ -366,7 +370,8 @@ public class VisitorFormServiceImpl implements VisitorFormService {
             userForm.setOrg_address(entry.getUser().getOrg_address());
             userForm.setProof_type(entry.getUser().getProof_type());
             userForm.setProof_id(entry.getUser().getProof_id());
-            userForm.setAppointmentId(appointmentId);
+            userForm.setVisitorAppoint(appointment);
+            
             
             userForm.setVisitor_row(visitorIndex == 0 ? "M" : "M" + visitorIndex);
 
@@ -422,7 +427,7 @@ public class VisitorFormServiceImpl implements VisitorFormService {
 
     @Override
     public List<VisitorFullDetailsDTO> getAllVisitorDetailsByAppointment(Long appointment_id) {
-        List<VisitorUserDetailsForm> users = vuserformRepo.findByAppointmentId(appointment_id);
+        List<VisitorUserDetailsForm> users = vuserformRepo.findByVisitorAppoint_Id(appointment_id);
         List<VisitorFullDetailsDTO> result = new ArrayList<>();
 
         for (VisitorUserDetailsForm user : users) {
@@ -438,8 +443,11 @@ public class VisitorFormServiceImpl implements VisitorFormService {
             dto.setProof_type(user.getProof_type());
             dto.setProof_id(user.getProof_id());
             dto.setPhotoPath(user.getPhotoPath());
-            dto.setAppointmentId(user.getAppointmentId());
-
+//            dto.setAppointmentId(user.getAppointmentId());
+//            dto.setAppointmentId(appointment);
+            dto.setAppointmentId(
+            	    user.getVisitorAppoint() != null ? user.getVisitorAppoint().getId() : null
+            	);
             // Fetch device
             VisitorDeviceDetailsForm device = vdeviceformRepo.findByVisitoruserdetailsform(user);
             if (device != null) {

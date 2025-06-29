@@ -1,22 +1,23 @@
 package com.sevael.yanmar.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AppointmentDisplayDTO {
 	    private String firstname;
 	    private LocalDate appointment_date;
-//	    private String hostName;
 	    private int appointment_type;
-	    private LocalDate checkin;
-	    private LocalDate checkout;
+	    private LocalDateTime checkin;
+	    private LocalDateTime checkout;
 	    private int approval_status;
 	    
 	    public AppointmentDisplayDTO() {}
 	    
-	    public AppointmentDisplayDTO(String firstname,LocalDate appointment_date,int appointment_type,LocalDate checkin,LocalDate checkout,
+	    public AppointmentDisplayDTO(String firstname,LocalDate appointment_date,int appointment_type,LocalDateTime checkin,LocalDateTime checkout,
 	    		int approval_status) {
 	    	this.firstname=firstname;
 	    	this.appointment_date=appointment_date;
+	    	this.appointment_type=appointment_type;
 	    	this.checkin=checkin;
 	    	this.checkout=checkout;
 	    	this.approval_status=approval_status;
@@ -46,19 +47,20 @@ public class AppointmentDisplayDTO {
 			this.appointment_type = appointment_type;
 		}
 
-		public LocalDate getCheckin() {
+		
+		public LocalDateTime getCheckin() {
 			return checkin;
 		}
 
-		public void setCheckin(LocalDate checkin) {
+		public void setCheckin(LocalDateTime checkin) {
 			this.checkin = checkin;
 		}
 
-		public LocalDate getCheckout() {
+		public LocalDateTime getCheckout() {
 			return checkout;
 		}
 
-		public void setCheckout(LocalDate checkout) {
+		public void setCheckout(LocalDateTime checkout) {
 			this.checkout = checkout;
 		}
 
