@@ -433,7 +433,7 @@ public class VisitorFormServiceImpl implements VisitorFormService {
         for (VisitorUserDetailsForm user : users) {
             VisitorFullDetailsDTO dto = new VisitorFullDetailsDTO();
 
-            dto.setUserId(user.getId());
+            dto.setId(user.getId());
             dto.setFirstname(user.getFirstname());
             dto.setLastname(user.getLastname());
             dto.setPhone_no(user.getPhone_no());
