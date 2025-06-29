@@ -18,6 +18,7 @@ import com.sevael.yanmar.util.EmailUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -116,4 +117,17 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 
 	     visitordetailsrepo.saveAll(visitors);
 	 }
+	 
+	 @Override
+	 public void updateApprovalStatusForAppointment(Long appointmentId, int approvalStatus) {
+	     Optional<VisitorAppoint> optional = appointrepo.findById(appointmentId);
+	     if (optional.isPresent()) {
+	         VisitorAppoint appointment = optional.get();
+	         appointment.setApproval_status(approvalStatus);
+	         appointrepo.save(appointment);
+	     } else {
+	         throw new RuntimeException("Appointment not found with id: " + appointmentId);
+	     }
+	 }
+
 }

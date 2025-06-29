@@ -15,4 +15,7 @@ public interface VisitAppointService {
 	
 	void updateCheckInForAll(Long appointmentId, LocalDateTime checkInTime);
 	void updateCheckoutForAll(Long appointmentId, LocalDateTime checkoutTime);
+	
+//	void updateApprovalStatus(Long visitorId, int approvalStatus);
+	void updateApprovalStatusForAppointment(Long appointmentId, int status);
 }

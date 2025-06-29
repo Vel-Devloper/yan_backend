@@ -3,6 +3,7 @@ package com.sevael.yanmar.controller;
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
 import com.sevael.yanmar.dto.AppointmentDisplayDTO;
+import com.sevael.yanmar.dto.VApprovalStatusDTO;
 import com.sevael.yanmar.dto.VCheckInOutUpdateDTO;
 import com.sevael.yanmar.entity.VisitorAppoint;
 import com.sevael.yanmar.service.VisitAppointService;
@@ -49,7 +50,7 @@ public class VisitorAppointController {
 //	    }
 	}
 	
-	@GetMapping("/allappointments")
+	@GetMapping("/all-appointments")
     public ResponseEntity<List<AppointmentDisplayDTO>> getTableData() {
         return ResponseEntity.ok(visitappointService.getDisplayAppointments());
     }
@@ -72,4 +73,24 @@ public class VisitorAppointController {
 	    return ResponseEntity.ok("Checkout time updated successfully.");
 	}
 	
+//	@PutMapping("/appointments/{appointmentId}/accept")
+//	public ResponseEntity<String> acceptAppointment(@PathVariable Long appointmentId) {
+//		visitappointService.updateApprovalStatusForAppointment(appointmentId, 1);
+//	    return ResponseEntity.ok("Appointment accepted.");
+//	}
+//
+//	@PutMapping("/appointments/{appointmentId}/reject")
+//	public ResponseEntity<String> rejectAppointment(@PathVariable Long appointmentId) {
+//		visitappointService.updateApprovalStatusForAppointment(appointmentId, 2);
+//	    return ResponseEntity.ok("Appointment rejected.");
+//	}
+	
+	@PutMapping("/appointments/approval")
+	public ResponseEntity<String> updateAppointmentApprovalStatus(
+	        @RequestParam Long appointmentId,
+	        @RequestParam int status) {
+
+	    visitappointService.updateApprovalStatusForAppointment(appointmentId, status);
+	    return ResponseEntity.ok("Appointment status updated.");
+	}
 }
