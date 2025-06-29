@@ -3,6 +3,7 @@ package com.sevael.yanmar.controller;
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
 import com.sevael.yanmar.dto.AppointmentDisplayDTO;
+import com.sevael.yanmar.dto.VCheckInOutUpdateDTO;
 import com.sevael.yanmar.entity.VisitorAppoint;
 import com.sevael.yanmar.service.VisitAppointService;
 import com.sevael.yanmar.repository.AppointRepo;
@@ -48,8 +49,27 @@ public class VisitorAppointController {
 //	    }
 	}
 	
-	@GetMapping("/table")
+	@GetMapping("/allappointments")
     public ResponseEntity<List<AppointmentDisplayDTO>> getTableData() {
         return ResponseEntity.ok(visitappointService.getDisplayAppointments());
     }
+	
+	@PutMapping("/appointments/{appointmentId}/checkin")
+	public ResponseEntity<String> updateCheckInForGroup(
+	        @PathVariable Long appointmentId,
+	        @RequestBody VCheckInOutUpdateDTO dto) {
+
+		visitappointService.updateCheckInForAll(appointmentId, dto.getCheckin());
+	    return ResponseEntity.ok("Check-in time updated for all visitors under appointment " + appointmentId);
+	}
+	
+	@PutMapping("/appointments/{appointmentId}/checkout")
+	public ResponseEntity<String> updateCheckoutForGroup(
+	        @PathVariable Long appointmentId,
+	        @RequestBody VCheckInOutUpdateDTO dto) {
+
+		visitappointService.updateCheckoutForAll(appointmentId, dto.getCheckout());
+	    return ResponseEntity.ok("Checkout time updated successfully.");
+	}
+	
 }

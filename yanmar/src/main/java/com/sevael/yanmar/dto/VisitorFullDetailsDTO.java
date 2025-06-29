@@ -14,7 +14,7 @@ public class VisitorFullDetailsDTO {
     private String org_address;
     private int proof_type;
     private String proof_id;
-    private int appointment_type;
+    private String appointment_type;
     private LocalDateTime checkin;
     private LocalDateTime checkout;
     private String photoPath;
@@ -36,7 +36,7 @@ public class VisitorFullDetailsDTO {
     
     public VisitorFullDetailsDTO(Long userId,String firstname,String lastname,String phone_no,String email,String org_name,String org_address,
  int proof_type, String proof_id, String photoPath, Long deviceId,String device_name,String device_model,String device_type,Long vehicleId,String vehicle_no, 
- String model, String type,Long appointmentId,int appointment_type) {
+ String model, String type,Long appointmentId,String appointment_type) {
     	this.userId = userId;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -59,8 +59,8 @@ public class VisitorFullDetailsDTO {
         this.appointment_type = appointment_type;
     }
     
-    public VisitorFullDetailsDTO(String firstname,int appointment_type,String org_name,String email,LocalDate appointment_date,LocalDateTime checkin
-    		,LocalDateTime checkout, String photoPath,String device_name,String device_model,String device_type) {
+    public VisitorFullDetailsDTO(String firstname,String appointment_type,String org_name,String email,LocalDate appointment_date,LocalDateTime checkin
+    		,LocalDateTime checkout, String photoPath,String device_name,String device_model,String device_type,Long appointmentId) {
     		        this.firstname = firstname;
     		        this.appointment_type = appointment_type;
     		        this.org_name = org_name;
@@ -72,6 +72,7 @@ public class VisitorFullDetailsDTO {
     		        this.device_name = device_name;
     		        this.device_model = device_model;
     		        this.device_type = device_type;
+    		        this.appointmentId = appointmentId;
     		    }
     
 	public Long getUserId() {
@@ -226,11 +227,12 @@ public class VisitorFullDetailsDTO {
 		this.appointmentId = appointmentId;
 	}
 
-	public int getAppointment_type() {
+
+	public String getAppointment_type() {
 		return appointment_type;
 	}
 
-	public void setAppointment_type(int appointment_type) {
+	public void setAppointment_type(String appointment_type) {
 		this.appointment_type = appointment_type;
 	}
 

@@ -48,4 +48,5 @@ public class VisitorFormController {
 	    List<VisitorFullDetailsDTO> data = visitorformService.getAllVisitorDetailsByAppointment(appointmentId);
 	    return ResponseEntity.ok(data);
 	}
+	
 }

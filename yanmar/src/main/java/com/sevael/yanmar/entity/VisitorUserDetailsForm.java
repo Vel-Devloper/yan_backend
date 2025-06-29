@@ -159,10 +159,6 @@ public class VisitorUserDetailsForm {
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
 	}
-	
-	
-
-
 
 
 	public LocalDateTime getCheckin() {

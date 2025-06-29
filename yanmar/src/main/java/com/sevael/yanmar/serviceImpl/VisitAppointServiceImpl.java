@@ -6,11 +6,17 @@ import org.springframework.stereotype.Service;
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
 import com.sevael.yanmar.dto.AppointmentDisplayDTO;
+import com.sevael.yanmar.dto.VCheckInOutUpdateDTO;
+import com.sevael.yanmar.entity.AppointmentType;
 import com.sevael.yanmar.entity.VisitorAppoint;
+import com.sevael.yanmar.entity.VisitorUserDetailsForm;
 import com.sevael.yanmar.repository.AppointRepo;
+import com.sevael.yanmar.repository.AppointmentTypeRepo;
+import com.sevael.yanmar.repository.VisitorDetailsRepository;
 import com.sevael.yanmar.service.VisitAppointService;
 import com.sevael.yanmar.util.EmailUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,15 +27,25 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	private AppointRepo appointrepo;
 	
 	@Autowired
+	private AppointmentTypeRepo appointtyperepo;
+	
+	@Autowired
+	private VisitorDetailsRepository visitordetailsrepo;
+	
+	@Autowired
 	private EmailUtil emailUtil;
 	
 //	private static final String BASE_URL = "http://yanmar.sevael.com/visitor/form";
-	private static final String BASE_URL = "http://135.13.39.201:5173/visitor/form";
+	private static final String BASE_URL = "http://135.13.39.201:5173/#/visitor/form";
 	
 	@Override
 	public AppointResponse createAppointment(AppointRequest dto) {
 		VisitorAppoint visitorpass = new VisitorAppoint();
-		visitorpass.setAppointment_type(dto.getAppointment_type());
+		
+		AppointmentType appointmentType = appointtyperepo
+		        .findById(dto.getAppointment_type())
+		        .orElseThrow(() -> new RuntimeException("Invalid appointment type ID"));
+		visitorpass.setAppointmentType(appointmentType);
 		visitorpass.setDuration(dto.getDuration());
 		visitorpass.setAppointment_date(dto.getAppointment_date());
 		visitorpass.setVisitor_email(dto.getVisitor_email());
@@ -67,7 +83,7 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	    		"Appointment created successfully",
 	    		saved.getRequest_type(),
 	            saved.getVisitor_email(),
-	            saved.getAppointment_type(),
+	            saved.getAppointmentType().getAppointment_type(),
 	            formLink,
 	            saved.getAppointment_date(),
 	            saved.getToken()
@@ -78,4 +94,26 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	    return appointrepo.fetchAppointmentsWithMainVisitors();
 	}
 	
+	 @Override
+	 public void updateCheckInForAll(Long appointmentId, LocalDateTime checkInTime) {
+	     List<VisitorUserDetailsForm> visitors = visitordetailsrepo.findByVisitorAppoint_Id(appointmentId);
+	
+	     for (VisitorUserDetailsForm visitor : visitors) {
+	    	    visitor.setCheckin(checkInTime);  //  checkInTime is LocalDateTime
+	    	}
+	
+	    	// Save updated entity list
+	     	visitordetailsrepo.saveAll(visitors);  //  now it's a list of entities
+		 }
+	 
+	 @Override
+	 public void updateCheckoutForAll(Long appointmentId, LocalDateTime checkoutTime) {
+	     List<VisitorUserDetailsForm> visitors = visitordetailsrepo.findByVisitorAppoint_Id(appointmentId);
+
+	     for (VisitorUserDetailsForm visitor : visitors) {
+	         visitor.setCheckout(checkoutTime);
+	     }
+
+	     visitordetailsrepo.saveAll(visitors);
+	 }
 }

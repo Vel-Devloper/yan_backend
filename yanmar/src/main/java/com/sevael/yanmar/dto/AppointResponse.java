@@ -7,7 +7,7 @@ public class AppointResponse {
     private String message;
     private int request_type;
     private String visitor_email;
-    private int appointment_type;
+    private String appointment_type;
     private LocalDate appointment_date;
     private String formLink;  // New field
     private String token;
@@ -16,7 +16,7 @@ public class AppointResponse {
 	public AppointResponse() {}
 	
 //	Constructors for Type1 (Includes Email)
-	public AppointResponse(Long id,String message,int request_type,String visitor_email,int appointment_type,String formLink,LocalDate appointment_date,String token) {
+	public AppointResponse(Long id,String message,int request_type,String visitor_email,String appointment_type,String formLink,LocalDate appointment_date,String token) {
 		this.id = id;
 		this.message = message;
 		this.request_type = request_type;
@@ -28,7 +28,7 @@ public class AppointResponse {
 	}
 	
 //	Constructors for Type2 (Not Includes Email)
-	public AppointResponse(Long id,String message,int request_type,int appointment_type,LocalDate appointment_date,String token) {
+	public AppointResponse(Long id,String message,int request_type,String appointment_type,LocalDate appointment_date,String token) {
 		this.id = id;
 		this.message = message;
 		this.request_type = request_type;
@@ -40,7 +40,7 @@ public class AppointResponse {
 	
 	
 //	This Constructor is used to get the details to the front end.
-	public AppointResponse(int appointment_type,LocalDate appointment_date) {	
+	public AppointResponse(String appointment_type,LocalDate appointment_date) {	
 		this.appointment_type = appointment_type;
 		this.appointment_date = appointment_date;
 	}
@@ -80,11 +80,11 @@ public class AppointResponse {
 		this.visitor_email = visitor_email;
 	}
 
-	public int getAppointment_type() {
+	public String getAppointment_type() {
 		return appointment_type;
 	}
 
-	public void setAppointment_type(int appointment_type) {
+	public void setAppointment_type(String appointment_type) {
 		this.appointment_type = appointment_type;
 	}
 

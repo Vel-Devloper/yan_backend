@@ -16,19 +16,36 @@ public interface AppointRepo extends JpaRepository<VisitorAppoint, Long>{
 
 	Optional<VisitorAppoint> findBytoken(String token);	
 
-	@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(" +
-		       "v.firstname, " +
-		       "a.appointment_date, a.appointment_type, v.checkin, v.checkout, a.approval_status) " +
-		       "FROM VisitorAppoint a JOIN a.visitorDetails v " +
-		       "WHERE v.visitor_row = 'M'")
-		List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
-	
 //	@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(" +
 //		       "v.firstname, " +
 //		       "a.appointment_date, a.appointment_type, v.checkin, v.checkout, a.approval_status) " +
 //		       "FROM VisitorAppoint a JOIN a.visitorDetails v " +
 //		       "WHERE v.visitor_row = 'M'")
-//		List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
+	
+//	@Query("SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(" +
+//		       "v.firstname, a.appointment_date, t.appointment_type, v.checkin, v.checkout, a.approval_status) " +
+//		       "FROM VisitorAppoint a " +
+//		       "JOIN a.visitorUserDetailsForms v " +
+//		       "JOIN a.appointmentType t " + // <-- join to get string name
+//		       "WHERE v.visitor_row = 'M'")
+	
+	@Query("""
+		    SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(
+		        v.firstname, 
+		        a.appointment_date, 
+		        a.appointmentType.appointment_type, 
+		        v.checkin, 
+		        v.checkout, 
+		        a.approval_status
+		    )
+		    FROM VisitorAppoint a
+		    JOIN a.visitorDetails v
+		    WHERE v.visitor_row = 'M'
+		""")
+		List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
+	
+	
+	
 }
 
 //List<VisitorAppoint> findAllByStatus(String status); 

@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 public class AppointmentDisplayDTO {
 	    private String firstname;
 	    private LocalDate appointment_date;
-	    private int appointment_type;
+	    private String appointment_type;
 	    private LocalDateTime checkin;
 	    private LocalDateTime checkout;
 	    private int approval_status;
 	    
 	    public AppointmentDisplayDTO() {}
 	    
-	    public AppointmentDisplayDTO(String firstname,LocalDate appointment_date,int appointment_type,LocalDateTime checkin,LocalDateTime checkout,
+	    public AppointmentDisplayDTO(String firstname,LocalDate appointment_date,String appointment_type,LocalDateTime checkin,LocalDateTime checkout,
 	    		int approval_status) {
 	    	this.firstname=firstname;
 	    	this.appointment_date=appointment_date;
@@ -39,15 +39,15 @@ public class AppointmentDisplayDTO {
 			this.appointment_date = appointment_date;
 		}
 
-		public int getAppointment_type() {
+	
+		public String getAppointment_type() {
 			return appointment_type;
 		}
 
-		public void setAppointment_type(int appointment_type) {
+		public void setAppointment_type(String appointment_type) {
 			this.appointment_type = appointment_type;
 		}
 
-		
 		public LocalDateTime getCheckin() {
 			return checkin;
 		}

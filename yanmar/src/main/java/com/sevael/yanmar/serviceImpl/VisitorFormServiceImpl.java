@@ -317,7 +317,6 @@ import com.sevael.yanmar.repository.VDeviceFormRepo;
 import com.sevael.yanmar.repository.VVehicleFormRepo;
 import com.sevael.yanmar.service.VisitorFormService;
 
-import com.sevael.yanmar.entity.VisitorUserDetailsForm;
 
 
 @Service
@@ -336,6 +335,7 @@ public class VisitorFormServiceImpl implements VisitorFormService {
 
     @Autowired
     private AppointRepo appointRepo;
+    
 
     @Override
     public void saveEntry(VisitorSubmissionDTO submissionDTO, List<MultipartFile> photoFiles) {

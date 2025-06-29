@@ -12,7 +12,10 @@ public class VisitorAppoint {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private int appointment_type;
+	@ManyToOne
+	@JoinColumn(name = "appointment_type", referencedColumnName = "id")
+	private AppointmentType appointmentType;
+//	private int appointment_type;
 	
 	private LocalDate appointment_date;
 	
@@ -44,12 +47,14 @@ public class VisitorAppoint {
 		this.id = id;
 	}
 
-	public int getAppointment_type() {
-		return appointment_type;
+	
+
+	public AppointmentType getAppointmentType() {
+		return appointmentType;
 	}
 
-	public void setAppointment_type(int appointment_type) {
-		this.appointment_type = appointment_type;
+	public void setAppointmentType(AppointmentType appointmentType) {
+		this.appointmentType = appointmentType;
 	}
 
 	public LocalDate getAppointment_date() {
