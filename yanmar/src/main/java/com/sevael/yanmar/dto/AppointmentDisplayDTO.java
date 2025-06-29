@@ -10,17 +10,19 @@ public class AppointmentDisplayDTO {
 	    private LocalDateTime checkin;
 	    private LocalDateTime checkout;
 	    private int approval_status;
+	    private Long id;
 	    
 	    public AppointmentDisplayDTO() {}
 	    
 	    public AppointmentDisplayDTO(String firstname,LocalDate appointment_date,String appointment_type,LocalDateTime checkin,LocalDateTime checkout,
-	    		int approval_status) {
+	    		int approval_status,Long id) {
 	    	this.firstname=firstname;
 	    	this.appointment_date=appointment_date;
 	    	this.appointment_type=appointment_type;
 	    	this.checkin=checkin;
 	    	this.checkout=checkout;
 	    	this.approval_status=approval_status;
+	    	this.id= id;
 	    }
 
 		public String getFirstname() {
@@ -70,6 +72,14 @@ public class AppointmentDisplayDTO {
 
 		public void setApproval_status(int approval_status) {
 			this.approval_status = approval_status;
+		}
+
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
 		}
 	    
 	

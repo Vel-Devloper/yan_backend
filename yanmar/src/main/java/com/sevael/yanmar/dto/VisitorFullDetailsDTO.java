@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class VisitorFullDetailsDTO {
 	
-    private Long userId;
+    private Long id;
     private String firstname;
     private String lastname;
     private String phone_no;
@@ -37,7 +37,7 @@ public class VisitorFullDetailsDTO {
     public VisitorFullDetailsDTO(Long userId,String firstname,String lastname,String phone_no,String email,String org_name,String org_address,
  int proof_type, String proof_id, String photoPath, Long deviceId,String device_name,String device_model,String device_type,Long vehicleId,String vehicle_no, 
  String model, String type,Long appointmentId,String appointment_type) {
-    	this.userId = userId;
+    	this.id = userId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone_no = phone_no;
@@ -75,12 +75,13 @@ public class VisitorFullDetailsDTO {
     		        this.appointmentId = appointmentId;
     		    }
     
-	public Long getUserId() {
-		return userId;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstname() {
