@@ -2,6 +2,7 @@ package com.sevael.yanmar.controller;
 
 import com.sevael.yanmar.service.VisitorFormService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sevael.yanmar.dto.SecurityViewDTO;
 import com.sevael.yanmar.dto.VisitorFullDetailsDTO;
 import com.sevael.yanmar.dto.VisitorSubmissionDTO;
 
@@ -48,5 +49,7 @@ public class VisitorFormController {
 	    List<VisitorFullDetailsDTO> data = visitorformService.getAllVisitorDetailsByAppointment(appointmentId);
 	    return ResponseEntity.ok(data);
 	}
+	
+
 	
 }

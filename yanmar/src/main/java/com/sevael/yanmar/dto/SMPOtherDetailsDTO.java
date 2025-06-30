@@ -11,12 +11,12 @@ public class SMPOtherDetailsDTO {
 	
 	private SMPOtherDetailsDTO() {}
 	
-	private SMPOtherDetailsDTO(String invoice_number,LocalDate invoice_date,Float overall_value,int gate_no, LocalDate mat_due_date) {
+	private SMPOtherDetailsDTO(String invoice_number,LocalDate invoice_date,Float overall_value, LocalDate mat_due_date) {
 		this.invoice_number = invoice_number;
 		this.invoice_date = invoice_date;
 		this.overall_value = overall_value;
 		this.mat_due_date = mat_due_date;
-		this.gate_no = gate_no;
+//		this.gate_no = gate_no;
 	}
 
 	public String getInvoice_number() {

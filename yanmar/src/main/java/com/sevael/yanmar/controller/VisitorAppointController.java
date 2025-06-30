@@ -3,6 +3,7 @@ package com.sevael.yanmar.controller;
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
 import com.sevael.yanmar.dto.AppointmentDisplayDTO;
+import com.sevael.yanmar.dto.SecurityViewDTO;
 import com.sevael.yanmar.dto.VApprovalStatusDTO;
 import com.sevael.yanmar.dto.VCheckInOutUpdateDTO;
 import com.sevael.yanmar.entity.VisitorAppoint;
@@ -18,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/yanmar/internal/admin")
+@RequestMapping("/yanmar/internal")
 public class VisitorAppointController {
 	
 	@Autowired
@@ -27,13 +28,13 @@ public class VisitorAppointController {
 	@Autowired
 	private AppointRepo appointrepo;
 	
-	@PostMapping("/visitorpass")
+	@PostMapping("/admin/visitorpass")
 	public ResponseEntity<AppointResponse> createAppointment(@RequestBody AppointRequest request){
 		AppointResponse response = visitappointService.createAppointment(request);
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping("/appointment")
+	@GetMapping("/admin/appointment")
 	public ResponseEntity<VisitorAppoint> getAppointmentByToken(@RequestParam String token) {
 	    Optional<VisitorAppoint> appointment = appointrepo.findBytoken(token);
 	    if (appointment.isPresent()) {
@@ -50,12 +51,18 @@ public class VisitorAppointController {
 //	    }
 	}
 	
-	@GetMapping("/all-appointments")
-    public ResponseEntity<List<AppointmentDisplayDTO>> getTableData() {
-        return ResponseEntity.ok(visitappointService.getDisplayAppointments());
-    }
+//	@GetMapping("/admin/all-appointments")
+//    public ResponseEntity<List<AppointmentDisplayDTO>> getTableData(@RequestParam int approval_status) {
+//		
+//        return ResponseEntity.ok(visitappointService.getDisplayAppointments());
+//    }
 	
-	@PutMapping("/appointments/{appointmentId}/checkin")
+	@GetMapping("/admin/all-appointments")
+	public ResponseEntity<List<AppointmentDisplayDTO>> getTableData() {
+	    return ResponseEntity.ok(visitappointService.getDisplayAppointments());
+	}
+	
+	@PutMapping("/security/appointments/{appointmentId}/checkin")
 	public ResponseEntity<String> updateCheckInForGroup(
 	        @PathVariable Long appointmentId,
 	        @RequestBody VCheckInOutUpdateDTO dto) {
@@ -64,7 +71,7 @@ public class VisitorAppointController {
 	    return ResponseEntity.ok("Check-in time updated for all visitors under appointment " + appointmentId);
 	}
 	
-	@PutMapping("/appointments/{appointmentId}/checkout")
+	@PutMapping("/security/appointments/{appointmentId}/checkout")
 	public ResponseEntity<String> updateCheckoutForGroup(
 	        @PathVariable Long appointmentId,
 	        @RequestBody VCheckInOutUpdateDTO dto) {
@@ -85,7 +92,7 @@ public class VisitorAppointController {
 //	    return ResponseEntity.ok("Appointment rejected.");
 //	}
 	
-	@PutMapping("/appointments/approval")
+	@PutMapping("/admin/appointments/approval")
 	public ResponseEntity<String> updateAppointmentApprovalStatus(
 	        @RequestParam Long appointmentId,
 	        @RequestParam int status) {
@@ -93,4 +100,9 @@ public class VisitorAppointController {
 	    visitappointService.updateApprovalStatusForAppointment(appointmentId, status);
 	    return ResponseEntity.ok("Appointment status updated.");
 	}
+	
+	@GetMapping("security/approved")
+    public List<SecurityViewDTO> getApprovedAppointments() {
+        return visitappointService.getDisplayapprovedAppoint();
+    }
 }

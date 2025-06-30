@@ -12,6 +12,19 @@ public class SMP_RequestorDetails {
 	private String requestor_name;
 	
 	private String department;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id") // this is the FK column in item_details table
+    private SMP_SupplierDetails supplier;
+	
+	
+	public SMP_SupplierDetails getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(SMP_SupplierDetails supplier) {
+		this.supplier = supplier;
+	}
 
 	public Long getId() {
 		return id;

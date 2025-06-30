@@ -1,6 +1,7 @@
 package com.sevael.yanmar.repository;
 
 import com.sevael.yanmar.dto.AppointmentDisplayDTO;
+import com.sevael.yanmar.dto.SecurityViewDTO;
 import com.sevael.yanmar.entity.VisitorAppoint;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface AppointRepo extends JpaRepository<VisitorAppoint, Long>{
 	
 	@Query("""
 		    SELECT new com.sevael.yanmar.dto.AppointmentDisplayDTO(
-		        v.firstname, 
+		        a.id,v.firstname, 
 		        a.appointment_date, 
 		        a.appointmentType.appointment_type, 
 		        v.checkin, 
@@ -45,6 +46,21 @@ public interface AppointRepo extends JpaRepository<VisitorAppoint, Long>{
 		List<AppointmentDisplayDTO> fetchAppointmentsWithMainVisitors();
 	
 	
+	@Query("""
+    SELECT new com.sevael.yanmar.dto.SecurityViewDTO(
+    a.id,v.firstname, 
+    a.appointment_date, 
+    a.appointmentType.appointment_type, 
+    v.checkin, 
+    v.checkout, 
+    a.approval_status
+	)
+	FROM VisitorAppoint a
+	JOIN a.visitorDetails v
+	WHERE v.visitor_row = 'M'
+	AND a.approval_status = 1
+	""")
+	List<SecurityViewDTO> getDisplayapprovedAppoint();
 	
 }
 

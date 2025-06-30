@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sevael.yanmar.dto.AppointRequest;
 import com.sevael.yanmar.dto.AppointResponse;
 import com.sevael.yanmar.dto.AppointmentDisplayDTO;
+import com.sevael.yanmar.dto.SecurityViewDTO;
 import com.sevael.yanmar.dto.VCheckInOutUpdateDTO;
 import com.sevael.yanmar.entity.AppointmentType;
 import com.sevael.yanmar.entity.VisitorAppoint;
@@ -129,5 +130,9 @@ public class VisitAppointServiceImpl implements VisitAppointService {
 	         throw new RuntimeException("Appointment not found with id: " + appointmentId);
 	     }
 	 }
-
+	 
+	 @Override
+	 public List<SecurityViewDTO> getDisplayapprovedAppoint() {
+	     return appointrepo.getDisplayapprovedAppoint();
+	 }
 }
